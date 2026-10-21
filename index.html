@@ -1,55 +1,271 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CloudCart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CloudCart | Smart Shopping</title>
 <style>
-  :root { --bg:#f6f8f5; --ink:#14201a; --muted:#5b6b62; --green:#1f7a4d; --green-d:#155937; --card:#ffffff; --line:#dbe3dd; }
-  * { box-sizing: border-box; margin: 0; }
-  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; }
-  header { display:flex; justify-content:space-between; align-items:center; padding:16px 6vw; background:var(--card); border-bottom:1px solid var(--line); }
-  .logo { font-weight:800; font-size:1.3rem; color:var(--green-d); }
-  .cart { font-weight:600; }
-  .hero { padding:56px 6vw; background:var(--green-d); color:#fff; }
-  .hero h1 { font-size:clamp(1.8rem,5vw,3rem); max-width:16ch; line-height:1.15; }
-  .hero p { margin-top:12px; max-width:48ch; color:#d3eadc; }
-  main { padding:40px 6vw 56px; }
-  h2 { font-size:1.3rem; margin-bottom:20px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
-  .item { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:20px; display:flex; flex-direction:column; gap:6px; }
-  .item .name { font-weight:700; }
-  .item .price { color:var(--muted); margin-bottom:10px; }
-  button { margin-top:auto; padding:10px; border:0; border-radius:6px; background:var(--green); color:#fff; font-weight:600; cursor:pointer; }
-  button:hover { background:var(--green-d); }
-  button:focus-visible { outline:3px solid #8fd1ac; outline-offset:2px; }
-  footer { padding:20px 6vw; color:var(--muted); font-size:.9rem; border-top:1px solid var(--line); }
+:root {
+  --green: #16a34a;
+  --dark: #123126;
+  --bg: #f5f8f5;
+  --muted: #64748b;
+  --white: #fff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: #182b22;
+  line-height: 1.6;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 7%;
+  background: white;
+  box-shadow: 0 2px 15px #1231260c;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo { font-size: 1.6rem; font-weight: 800; color: var(--dark); }
+.logo span { color: var(--green); }
+.cart {
+  background: #e8f7ed;
+  color: #166534;
+  padding: 9px 16px;
+  border-radius: 25px;
+  font-weight: bold;
+}
+.hero {
+  background: linear-gradient(120deg, #123126, #176b46);
+  color: white;
+  padding: 75px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.hero-content { max-width: 600px; }
+.tag {
+  color: #b8f7cd;
+  font-size: .8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 1.12;
+  margin: 16px 0;
+}
+.hero p { color: #d7e9de; max-width: 500px; }
+.shop-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 13px 24px;
+  border-radius: 8px;
+  background: #4ade80;
+  color: #123126;
+  text-decoration: none;
+  font-weight: bold;
+}
+.hero-icon { font-size: clamp(5rem, 13vw, 10rem); }
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 25px 7%;
+}
+.benefit {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: .92rem;
+}
+main { padding: 45px 7% 65px; }
+.section-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+.section-top h2 { font-size: 2rem; }
+.section-top p { color: var(--muted); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.item {
+  background: white;
+  border: 1px solid #e5ece6;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
+}
+.item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px #12312612;
+}
+.product-art {
+  height: 145px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 4.4rem;
+  background: #f0f7f1;
+  margin-bottom: 18px;
+}
+.item h3 { font-size: 1.08rem; margin-bottom: 4px; }
+.description { color: var(--muted); font-size: .86rem; }
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 14px 0;
+}
+.price { font-weight: 800; font-size: 1.12rem; }
+.rating { color: #b77908; font-size: .85rem; }
+button {
+  width: 100%;
+  margin-top: auto;
+  padding: 11px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--green);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background .2s;
+}
+button:hover { background: #15803d; }
+button:focus-visible, a:focus-visible {
+  outline: 3px solid #86efac;
+  outline-offset: 3px;
+}
+footer {
+  text-align: center;
+  background: var(--dark);
+  color: #d7e9de;
+  padding: 28px 7%;
+  font-size: .9rem;
+}
+footer strong { color: #86efac; }
+@media (max-width: 950px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  header { padding: 15px 5%; }
+  .hero { padding: 48px 6%; }
+  .hero-icon { display: none; }
+  .benefits { grid-template-columns: 1fr; padding: 20px 6%; }
+  main { padding: 35px 5%; }
+  .section-top { align-items: start; flex-direction: column; }
+  .grid { gap: 12px; }
+  .item { padding: 12px; }
+  .product-art { height: 105px; font-size: 3.2rem; }
+}
 </style>
 </head>
 <body>
 <header>
-  <span class="logo">CloudCart</span>
-  <span class="cart">Cart (<span id="count">0</span>)</span>
+  <div class="logo">Cloud<span>Cart.</span></div>
+  <div class="cart">🛒 Cart (<span id="count">0</span>)</div>
 </header>
+
 <section class="hero">
-  <h1>Smart shopping starts here</h1>
-  <p>Laptops, audio, wearables and phones, delivered from a container built by Jenkins.</p>
+  <div class="hero-content">
+    <div class="tag">Your everyday tech store</div>
+    <h1>Upgrade your world with smarter tech.</h1>
+    <p>Discover your favourite gadgets at great prices. Simple shopping, modern technology, and a smooth experience.</p>
+    <a class="shop-btn" href="#products">Explore Products →</a>
+  </div>
+  <div class="hero-icon" aria-hidden="true">🛍️</div>
 </section>
-<main>
-  <h2>Featured products</h2>
+
+<section class="benefits">
+  <div class="benefit">🚚 <strong>Fast Delivery</strong><br>Convenient doorstep delivery</div>
+  <div class="benefit">🔒 <strong>Secure Shopping</strong><br>A simple shopping experience</div>
+  <div class="benefit">⭐ <strong>Quality Gadgets</strong><br>Tech for everyday life</div>
+</section>
+
+<main id="products">
+  <div class="section-top">
+    <div>
+      <h2>Featured Products</h2>
+      <p>Find the right tech for you.</p>
+    </div>
+    <p>4 products</p>
+  </div>
+
   <div class="grid">
-    <div class="item"><span class="name">Laptop</span><span class="price">₹49,999</span><button>Add to cart</button></div>
-    <div class="item"><span class="name">Headphones</span><span class="price">₹2,499</span><button>Add to cart</button></div>
-    <div class="item"><span class="name">Smartwatch</span><span class="price">₹3,999</span><button>Add to cart</button></div>
-    <div class="item"><span class="name">Smartphone</span><span class="price">₹19,999</span><button>Add to cart</button></div>
+    <article class="item">
+      <div class="product-art" aria-hidden="true">💻</div>
+      <h3>Pro Laptop</h3>
+      <p class="description">Power for work and creativity</p>
+      <div class="price-row"><span class="price">₹49,999</span><span class="rating">★ 4.8</span></div>
+      <button data-product="Pro Laptop">Add to Cart +</button>
+    </article>
+
+    <article class="item">
+      <div class="product-art" aria-hidden="true">🎧</div>
+      <h3>Wireless Headphones</h3>
+      <p class="description">Enjoy your favourite sounds</p>
+      <div class="price-row"><span class="price">₹2,499</span><span class="rating">★ 4.6</span></div>
+      <button data-product="Wireless Headphones">Add to Cart +</button>
+    </article>
+
+    <article class="item">
+      <div class="product-art" aria-hidden="true">⌚</div>
+      <h3>Smart Watch</h3>
+      <p class="description">Stay connected every day</p>
+      <div class="price-row"><span class="price">₹3,999</span><span class="rating">★ 4.7</span></div>
+      <button data-product="Smart Watch">Add to Cart +</button>
+    </article>
+
+    <article class="item">
+      <div class="product-art" aria-hidden="true">📱</div>
+      <h3>Smartphone</h3>
+      <p class="description">Your world in your hands</p>
+      <div class="price-row"><span class="price">₹19,999</span><span class="rating">★ 4.5</span></div>
+      <button data-product="Smartphone">Add to Cart +</button>
+    </article>
   </div>
 </main>
-<footer>Deployed with Git, Jenkins, Docker and AWS EC2. Version 2</footer>
+
+<footer>
+  <strong>CloudCart.</strong> — A demo e-commerce website<br>
+  Built with HTML, CSS, Git, Jenkins, Docker and AWS EC2.
+</footer>
+
 <script>
-  var n = 0;
-  document.querySelectorAll('button').forEach(function (b) {
-    b.addEventListener('click', function () { n++; document.getElementById('count').textContent = n; });
+let count = 0;
+
+document.querySelectorAll('[data-product]').forEach(function(button) {
+  button.addEventListener('click', function() {
+    count++;
+    document.getElementById('count').textContent = count;
+
+    const original = button.textContent;
+    button.textContent = '✓ Added!';
+    button.style.background = '#166534';
+
+    setTimeout(function() {
+      button.textContent = original;
+      button.style.background = '';
+    }, 900);
   });
+});
 </script>
 </body>
 </html>
+
